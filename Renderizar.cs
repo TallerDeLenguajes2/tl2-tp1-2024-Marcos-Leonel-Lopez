@@ -1,4 +1,4 @@
-public static class Interface
+public static class Renderizar
 {
     public static void MostrarMenu<T>(List<T> elementos)
     {
