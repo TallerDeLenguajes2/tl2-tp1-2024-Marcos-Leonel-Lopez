@@ -5,7 +5,8 @@ public static readonly List<string> Menu = new List<string>{
     "Asiganar pedido",
     "Cambiar estado",
     "Reasignar pedido",
-    "Mostrar informe"
+    "Mostrar informe",
+    "debug"
  };
 
 

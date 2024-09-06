@@ -2,7 +2,7 @@ public static class Renderizar
 {
     public static void MostrarMenu<T>(List<T> elementos)
     {
-        Console.Clear();
+        // Console.Clear();
         System.Console.WriteLine("===== MENU =====");
         System.Console.WriteLine();
         for (int i = 0; i < elementos.Count; i++)

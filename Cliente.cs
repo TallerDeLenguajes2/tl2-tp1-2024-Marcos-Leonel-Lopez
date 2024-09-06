@@ -14,5 +14,8 @@ public class Cliente
     public string obtenerDireccion(){
         return this.direccion;
     }
+    public string obtenerNombre(){
+        return this.nombre;
+    }
 
 }

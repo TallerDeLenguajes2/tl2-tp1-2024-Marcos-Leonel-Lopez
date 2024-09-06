@@ -2,8 +2,9 @@ public class Cadeteria
 {
     private string nombre;
     private string telefono;
-    private List<Cadete> cadetes = new List<Cadete>();
+    public List<Cadete> Cadetes { get; } = new List<Cadete>();
 
+    private static int cont = 1;
 
     public Cadeteria(string nombre, string telefono)
     {
@@ -11,7 +12,6 @@ public class Cadeteria
         this.telefono = telefono;
     }
 
-    public List<Cadete> Cadetes { get => cadetes;}
 
     public void CargarCadetesDesdeCSV(string filePath)
     {
@@ -22,6 +22,15 @@ public class Cadeteria
             var cadete = new Cadete(values[0],values[1],values[2],values[3]);
             Cadetes.Add(cadete);
         }
+    }
+
+    public void CargarCadete(string nombre,string cedula,string telefono){
+        Cadetes.Add(new Cadete(cont.ToString(), nombre, cedula, telefono));
+        cont++;
+    }
+
+    public string nombreCadeteria(){
+        return this.nombre;
     }
 }
 

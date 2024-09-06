@@ -10,27 +10,36 @@ public class Pedido
     private string obs;
     private Cliente cliente;
     private EstadoPedido estado;
-    private void GenerarNumeroPedido()
-    {
-        Random random = new Random();
-        int numeroAleatorio = random.Next(1000, 9999);  // Genera un número aleatorio entre 1000 y 9999
-        this.nro = numeroAleatorio.ToString();  // Asigna el número aleatorio a 'nro'
+
+    private static int cont = 1;
+
+
+    public Pedido(){
+        
     }
     public Pedido(string obs, string nombre, string direccion, string telefono, string referenciaDireccion)
     {
-        GenerarNumeroPedido();
+        this.nro = cont.ToString();
+        cont++;
         this.obs = obs;
         this.cliente = new Cliente(nombre, direccion, telefono, referenciaDireccion);
         this.estado = EstadoPedido.Pendiente;
     }
 
-    public Cliente VerDatosCliente()
+    public string obtenerID(){
+        return this.nro;
+    }
+    public string VerDatosCliente()
     {
-        return this.cliente;
+        return this.cliente.obtenerNombre();
     }
     public string VerDireccionCliente()
     {
         return this.cliente.obtenerDireccion();
+    }
+
+    public string VerDatosPedido(){
+        return $"Nro: {this.nro}, Obs: {this.obs}, Cliente: {this.VerDatosCliente()}, Dirección: {this.VerDireccionCliente()}";
     }
 
 
