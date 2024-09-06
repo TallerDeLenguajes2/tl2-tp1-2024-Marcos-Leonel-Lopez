@@ -29,7 +29,7 @@ public class Cadeteria
         cont++;
     }
 
-    public string nombreCadeteria(){
+    public string NombreCadeteria(){
         return this.nombre;
     }
 }

@@ -39,8 +39,24 @@ public class Pedido
     }
 
     public string VerDatosPedido(){
-        return $"Nro: {this.nro}, Obs: {this.obs}, Cliente: {this.VerDatosCliente()}, Dirección: {this.VerDireccionCliente()}";
+        return $"Nro: {this.nro}, Obs: {this.obs}, Cliente: {this.VerDatosCliente()}, Dirección: {this.VerDireccionCliente()}, estaado: {this.estado}";
     }
 
+    public void CambiarEstado(EstadoPedido nuevoEstado)
+    {
+        this.estado = nuevoEstado;
+    }
+
+    public bool EsPedidoCompleto(){
+        return this.estado == EstadoPedido.Completado;
+    }
+
+    public Cadete PerteneceA(List<Cadete> cadetes){
+        foreach(Cadete cadete in cadetes){
+            if(cadete.ListaPedidos().Contains(this))
+                return cadete;
+        }
+        return null;
+    }
 
 }
