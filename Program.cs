@@ -14,9 +14,9 @@ cadeteria1.CargarCadete("Roberto", "345345", "543543");
 cadeteria2.CargarCadete("Ana", "678678", "876876");
 cadeteria2.CargarCadete("Nina", "146146", "641641");
 
-pedidos.Add(new Pedido("observacion ---", "naty", "Lamadrid", "tel ---", "referencia ---"));
-pedidos.Add(new Pedido("observacion ---", "pau", "gral paz", "tel ---", "referencia ---"));
-pedidos.Add(new Pedido("observacion ---", "pao", "9 julio", "tel ---", "referencia ---"));
+pedidos.Add(new Pedido("observacion ---", "Juan", "Lamadrid", "tel ---", "referencia ---"));
+pedidos.Add(new Pedido("observacion ---", "Pau", "gral paz", "tel ---", "referencia ---"));
+pedidos.Add(new Pedido("observacion ---", "Pao", "9 julio", "tel ---", "referencia ---"));
 
 
 
