@@ -57,7 +57,7 @@ public class Cadeteria
         Cadete auxCadete = new Cadete();
         foreach (var pedido in this.pedidos)
         {
-            if (pedido.obtenerID() == idPedido)
+            if (pedido.ObtenerID() == idPedido)
             {
                 if (pedido.EsPedidoCompleto())
                 {
@@ -103,7 +103,7 @@ public class Cadeteria
         Cadete auxCadete = new Cadete();
         foreach (var pedido in this.pedidos)
         {
-            if (pedido.obtenerID() == idPedido)
+            if (pedido.ObtenerID() == idPedido)
             {
                 if (pedido.EsPedidoCompleto())
                 {
@@ -123,7 +123,7 @@ public class Cadeteria
         }
         if (auxPedido != null && auxCadete != null)
         {
-            if (auxPedido.ObtenerCadeteAsignado() != idCadete)
+            if (auxPedido.ObtenerCadeteAsignado() == idCadete && auxPedido.TieneCadeteAsignado())
             {
                 if (auxPedido.ObtenerEstado() != Pedido.EstadoPedido.Completado)
                 {
@@ -136,14 +136,13 @@ public class Cadeteria
                 }
                 else
                 {
-                    return "No se puede cambiar el estado de un pedido que ya está completo";
+                    return "No se puede cambiar el estado de un pedido (ya completo o no asignado)";
                 }
             }
             else
             {
-                return "El pedido no corresponde al cadete";
+                return "No se puede cambiar el estado de un pedido";
             }
-
         }
         else
         {

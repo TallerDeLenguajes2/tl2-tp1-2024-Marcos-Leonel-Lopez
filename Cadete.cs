@@ -1,4 +1,4 @@
-public class Cadete
+public class Cadete : IData
 {
     private string id;
     private string nombre;
@@ -20,7 +20,7 @@ public class Cadete
 
     }
 
-    public string DatosCadete()
+    public string ObtenerDatos()
     {
         return $"ID: {this.id}, Nombre: {this.nombre}, Número de Pedidos Completos: {this.numPedidosCompletos}";
     }

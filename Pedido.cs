@@ -1,4 +1,4 @@
-public class Pedido
+public class Pedido : IData
 {
     public enum EstadoPedido
     {
@@ -28,7 +28,7 @@ public class Pedido
         this.refCadete = null;
     }
 
-    public string obtenerID()
+    public string ObtenerID()
     {
         return this.idPedido;
     }
@@ -41,7 +41,7 @@ public class Pedido
         return this.cliente.obtenerDireccion();
     }
 
-    public string VerDatosPedido()
+    public string ObtenerDatos()
     {
         string refCadete = null != this.refCadete ? this.refCadete : "Sin cadete asignado";
         return $"Id pedido: {this.idPedido}, Obs: {this.obs}, Cliente: {this.VerDatosCliente()}, Dirección: {this.VerDireccionCliente()}, Estado: {this.estado}, Ref. cadete asignado: {refCadete}";
