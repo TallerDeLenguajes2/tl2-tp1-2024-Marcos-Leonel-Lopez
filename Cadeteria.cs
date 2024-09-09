@@ -86,11 +86,11 @@ public class Cadeteria
         }
         else
         {
-            if (auxPedido != null)
+            if (auxPedido == null)
             {
                 return "No se encontro el pedido";
             }
-            if (auxCadete != null)
+            if (auxCadete == null)
             {
                 return "No se encontro el cadete";
             }
@@ -158,9 +158,37 @@ public class Cadeteria
         return "Error inesperado.";
     }
 
+    public string CadeteDePedido(string idPedido){
+        foreach (var pedido in this.pedidos)
+        {
+            if (pedido.ObtenerID() == idPedido)
+            {
+                return pedido.ObtenerCadeteAsignado();
+            }
+        }
+        return null;
+    }
 
-
-
+    public string ReasignarPedido(string idCadetePrevio, string idCadete, string idPedido){
+        Pedido auxPedido = new Pedido();
+        foreach (var pedido in this.pedidos)
+        {
+            if (pedido.ObtenerCadeteAsignado() == idCadetePrevio)
+            {
+                if (pedido.EsPedidoCompleto())
+                {
+                    return "El pedido ya está completo";
+                }
+                auxPedido = pedido;
+                break;
+            }
+        }
+        if(auxPedido != null){
+            auxPedido.AsignarCadete(null);
+            return AsignarCadeteAPedido(idCadete,idPedido);
+        }
+        return "Error inesperado";
+    }
 
 
 

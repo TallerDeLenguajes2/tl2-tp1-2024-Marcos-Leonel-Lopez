@@ -54,16 +54,13 @@ while (true)
                     if (!pedido.TieneCadeteAsignado())
                     {
                         System.Console.WriteLine($"{pedido.ObtenerDatos()}");
-
                     }
                 }
                 System.Console.WriteLine("=============");
                 System.Console.WriteLine($"Lista de cadetes: {cadeteria.NombreCadeteria()}");
                 foreach (var cadete in cadeteria.ListaCadetes())
                 {
-                    //cadete.verifiarPedidosCompletos();
                     System.Console.WriteLine($"{cadete.ObtenerDatos()}");
-
                 }
                 System.Console.WriteLine("=============");
 
@@ -122,80 +119,46 @@ while (true)
                     res = "Opcion invalida";
                 }
                 System.Console.WriteLine(res);
-
                 break;
             case 4: //reasignar pedido
-                    //muestor todos los pedidos y selecciono el que quiero
-                    // auxPedido = null;
-                    // auxCadete = null;
-                    // System.Console.WriteLine("Lista de pedidos:");
-                    // foreach (var cadete in cadeteria.Cadetes)
-                    // {
-                    //     if (cadete.TienePedidos())
-                    //     {
-                    //         cadete.verifiarPedidosCompletos();
-                    //         System.Console.WriteLine(cadete.DatosCadete());
-                    //         foreach (var pedido in cadete.ListaPedidos())
-                    //         {
-                    //             System.Console.WriteLine(pedido.VerDatosPedido());
-                    //         }
-                    //     }
-                    // }
-                    // System.Console.WriteLine("Indicar nro. de pedido para cambiar su estado:");
-                    // nPedido = Console.ReadLine();
-                    // foreach (var cadete in cadeteria.Cadetes)
-                    // {
-                    //     if (cadete.TienePedidos())
-                    //     {
-                    //         foreach (var pedido in cadete.ListaPedidos())
-                    //         {
-                    //             if (pedido.obtenerID() == nPedido)
-                    //             {
-                    //                 auxPedido = pedido;
-                    //                 break;
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                //muestor todos los pedidos y selecciono el que quiero
+                auxPedido = null;
+                auxCadete = null;
+                string idCadetePrevio = null;
+                System.Console.WriteLine("Lista de pedidos:");
+                foreach (var pedido in cadeteria.ListaPedidos())
+                {
+                    if (pedido.TieneCadeteAsignado() && !pedido.EsPedidoCompleto())
+                    {
+                        System.Console.WriteLine($"{pedido.ObtenerDatos()}");
+                    }
+                }
+                System.Console.WriteLine("Indicar nro. de pedido a reasignar:");
+                nPedido = Console.ReadLine();
+                idCadetePrevio = cadeteria.CadeteDePedido(nPedido);
+                if (idCadetePrevio == null)
+                {
+                    System.Console.WriteLine("ERROR");
+                    break;
+                }
 
-                // if (auxPedido == null)
-                // {
-                //     System.Console.WriteLine($"{nPedido} no encontrado");
-                //     break;
-                // }
-                // if (auxPedido.EsPedidoCompleto())
-                // {
-                //     System.Console.WriteLine("El pedido ya fue completado");
-                //     break;
-                // }
-
-                // auxCadete = auxPedido.PerteneceA(cadeteria.Cadetes);
-
-                // auxCadete.QuitarPedido(auxPedido);
-
-                // System.Console.WriteLine($"Lista de cadetes: {cadeteria.NombreCadeteria()}");
-                // foreach (var cadete in cadeteria.Cadetes)
-                // {
-                //     cadete.verifiarPedidosCompletos();
-                //     System.Console.WriteLine($"{cadete.DatosCadete()}");
-
-                // }
-                // System.Console.WriteLine("Seleccionar nuevo cadete:");
-                // nCadete = Console.ReadLine();
-                // foreach (var cadete in cadeteria.Cadetes)
-                // {
-                //     if (cadete.ObtenerID() == nCadete)
-                //     {
-                //         auxCadete = cadete;
-                //         break;
-                //     }
-                // }
-
-                // if (auxPedido != null && auxCadete != null)
-                // {
-                //     auxCadete.AsignarPedido(auxPedido);
-                // }
-
+                System.Console.WriteLine("Cadete a asignar:");
+                foreach (var cadete in cadeteria.ListaCadetes())
+                {
+                    if (cadete.ObtenerID() != idCadetePrevio)
+                    {
+                        System.Console.WriteLine($"{cadete.ObtenerDatos()}");
+                    }
+                }
+                System.Console.WriteLine("Indicar nro. de cadete a asignar:");
+                nCadete = Console.ReadLine();
+                if (nCadete == idCadetePrevio)
+                {
+                    System.Console.WriteLine("ERROR");
+                    break;
+                }
+                res = cadeteria.ReasignarPedido(idCadetePrevio, nCadete, nPedido);
+                System.Console.WriteLine(res);
                 break;
             case 5: //mostrar informe
 
