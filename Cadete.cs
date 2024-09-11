@@ -20,14 +20,13 @@ public class Cadete : IData
 
     }
 
-    public string ObtenerDatos()
-    {
-        return $"ID: {this.id}, Nombre: {this.nombre}, Número de Pedidos Completos: {this.numPedidosCompletos}";
-    }
-
     public string ObtenerID()
     {
         return this.id;
+    }
+    public string ObtenerDatos()
+    {
+        return $"ID: {this.id}, Nombre: {this.nombre}, Número de Pedidos Completos: {this.numPedidosCompletos}";
     }
 
     public void IncrementarPedidosCompletos()
