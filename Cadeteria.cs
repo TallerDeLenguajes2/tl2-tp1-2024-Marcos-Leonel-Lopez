@@ -51,6 +51,11 @@ public class Cadeteria
         return this.cadetes.AsReadOnly();
     }
 
+    // public IReadOnlyList<T> ObtenerListaComoSoloLectura<T>(List<T> lista)
+    // {
+    //     return lista.AsReadOnly();
+    // }
+
     public string AsignarCadeteAPedido(string idCadete, string idPedido)
     {
         Pedido auxPedido = new Pedido();
@@ -158,7 +163,8 @@ public class Cadeteria
         return "Error inesperado.";
     }
 
-    public string CadeteDePedido(string idPedido){
+    public string CadeteDePedido(string idPedido)
+    {
         foreach (var pedido in this.pedidos)
         {
             if (pedido.ObtenerID() == idPedido)
@@ -169,7 +175,8 @@ public class Cadeteria
         return null;
     }
 
-    public string ReasignarPedido(string idCadetePrevio, string idCadete, string idPedido){
+    public string ReasignarPedido(string idCadetePrevio, string idCadete, string idPedido)
+    {
         Pedido auxPedido = new Pedido();
         foreach (var pedido in this.pedidos)
         {
@@ -183,9 +190,10 @@ public class Cadeteria
                 break;
             }
         }
-        if(auxPedido != null){
+        if (auxPedido != null)
+        {
             auxPedido.AsignarCadete(null);
-            return AsignarCadeteAPedido(idCadete,idPedido);
+            return AsignarCadeteAPedido(idCadete, idPedido);
         }
         return "Error inesperado";
     }
