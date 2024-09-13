@@ -78,7 +78,7 @@ while (true)
                 res = cadeteria.AsignarCadeteAPedido(nCadete, nPedido);
                 System.Console.WriteLine(res);
                 break;
-            case 3: //cambiar estado
+            case 3: //cambiar estado hacerlo de forma ciclica o indicar primeramente que se hara..
                 auxPedido = null;
                 auxCadete = null;
                 System.Console.WriteLine("Lista de pedidos:");
