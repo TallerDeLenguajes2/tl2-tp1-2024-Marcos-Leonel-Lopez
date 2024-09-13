@@ -1,4 +1,4 @@
-public class Cadete : IData
+public class Cadete : IData, IIdentificador
 {
     private string id;
     private string nombre;
@@ -34,6 +34,14 @@ public class Cadete : IData
         this.numPedidosCompletos++;
     }
 
+    public int PedidosCompletos()
+    {
+        return this.numPedidosCompletos;
+    }
+    public string ObtenerNombre(){
+        return this.nombre;
+    }
+
 
     // Si no agregas IReadOnlyList, el código externo puede modificar la lista directamente
 
@@ -43,26 +51,6 @@ public class Cadete : IData
     // pedidosExternos.Add(new Pedido { /* propiedades del pedido */ });
     // pedidosExternos.RemoveAt(0);  Eliminar el primer pedido
     // pedidosExternos.Clear();  Eliminar todos los pedidos
-
-
-    // public bool TienePedidos(){
-    //     return this.pedidos.Count > 0;
-    // }
-
-    // public void verifiarPedidosCompletos(){
-    //     this.numPedidosCompletos = 0;
-    //     if(this.TienePedidos()){
-    //         foreach(var pedido in this.pedidos){
-    //             if(pedido.EsPedidoCompleto()){
-    //                 this.numPedidosCompletos++;
-    //             }
-    //         }
-
-    //     }        
-    // }
-    // public void QuitarPedido(Pedido pedido){
-    //     this.pedidos.Remove(pedido);
-    // }
 
 
 }

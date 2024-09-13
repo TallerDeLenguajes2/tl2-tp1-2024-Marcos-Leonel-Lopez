@@ -1,9 +1,9 @@
-public class Cadeteria
+public class Cadeteria : IData
 {
     private string nombre;
     private string telefono;
-    public List<Cadete> cadetes;
-    public List<Pedido> pedidos;
+    private List<Cadete> cadetes;
+    private List<Pedido> pedidos;
 
     private static int cont = 1;
 
@@ -13,18 +13,6 @@ public class Cadeteria
         this.telefono = telefono;
         this.cadetes = new List<Cadete>();
         this.pedidos = new List<Pedido>();
-    }
-
-
-    public void CargarCadetesDesdeCSV(string filePath)
-    {
-        var lines = File.ReadAllLines(filePath);
-        foreach (var line in lines[1..]) // Ignora la primera línea de encabezados
-        {
-            var values = line.Split(',');
-            var cadete = new Cadete(values[0], values[1], values[2], values[3]);
-            this.cadetes.Add(cadete);
-        }
     }
 
     public void CargarCadete(string nombre, string cedula, string telefono)
@@ -38,28 +26,24 @@ public class Cadeteria
         this.pedidos.Add(new Pedido(obs, nombre, direccion, telefono, referenciaDireccion));
     }
 
-    public string NombreCadeteria()
+    public string ObtenerDatos()
     {
-        return this.nombre;
+        return $"Nombre: {this.nombre}, Telefono: {this.telefono}";
     }
-    public IReadOnlyList<Pedido> ListaPedidos()
-    {
-        return this.pedidos.AsReadOnly();
-    }
-    public IReadOnlyList<Cadete> ListaCadetes()
-    {
-        return this.cadetes.AsReadOnly();
-    }
-
-    // public IReadOnlyList<T> ObtenerListaComoSoloLectura<T>(List<T> lista)
+    
+    // public IReadOnlyList<Pedido> ListaPedidos()
     // {
-    //     return lista.AsReadOnly();
+    //     return this.pedidos.AsReadOnly();
+    // }
+    // public IReadOnlyList<Cadete> ListaCadetes()
+    // {
+    //     return this.cadetes.AsReadOnly();
     // }
 
     public string AsignarCadeteAPedido(string idCadete, string idPedido)
     {
-        Pedido auxPedido = new Pedido();
-        Cadete auxCadete = new Cadete();
+        Pedido auxPedido = null;// no es necesario instanciar un nuevo objeto
+        Cadete auxCadete = null;
         foreach (var pedido in this.pedidos)
         {
             if (pedido.ObtenerID() == idPedido)
@@ -86,7 +70,7 @@ public class Cadeteria
         }
         if (auxPedido != null && auxCadete != null)
         {
-            auxPedido.AsignarCadete(auxCadete.ObtenerID());
+            auxPedido.AsignarCadete(auxCadete); // asignar el cadete completo
             return "Cadete asignado con éxito";
         }
         else
@@ -104,8 +88,8 @@ public class Cadeteria
     }
     public string CambiarEstadoDePedido(string idCadete, string idPedido, Pedido.EstadoPedido nuevoEstado)
     {
-        Pedido auxPedido = new Pedido();
-        Cadete auxCadete = new Cadete();
+        Pedido auxPedido = null;
+        Cadete auxCadete = null;
         foreach (var pedido in this.pedidos)
         {
             if (pedido.ObtenerID() == idPedido)
@@ -128,7 +112,7 @@ public class Cadeteria
         }
         if (auxPedido != null && auxCadete != null)
         {
-            if (auxPedido.ObtenerCadeteAsignado() == idCadete && auxPedido.TieneCadeteAsignado())
+            if (auxPedido.ObtenerIdCadeteAsignado() == idCadete && auxPedido.TieneCadeteAsignado())
             {
                 if (auxPedido.ObtenerEstado() != Pedido.EstadoPedido.Completado)
                 {
@@ -169,7 +153,7 @@ public class Cadeteria
         {
             if (pedido.ObtenerID() == idPedido)
             {
-                return pedido.ObtenerCadeteAsignado();
+                return pedido.ObtenerIdCadeteAsignado();
             }
         }
         return null;
@@ -177,10 +161,10 @@ public class Cadeteria
 
     public string ReasignarPedido(string idCadetePrevio, string idCadete, string idPedido)
     {
-        Pedido auxPedido = new Pedido();
+        Pedido auxPedido = null;
         foreach (var pedido in this.pedidos)
         {
-            if (pedido.ObtenerCadeteAsignado() == idCadetePrevio)
+            if (pedido.ObtenerIdCadeteAsignado() == idCadetePrevio)
             {
                 if (pedido.EsPedidoCompleto())
                 {
@@ -198,6 +182,69 @@ public class Cadeteria
         return "Error inesperado";
     }
 
+    public string ListaPedidosAsignados()
+    {
+        string lista = "";
+        foreach (var pedido in this.pedidos)
+        {
+            if (!pedido.TieneCadeteAsignado())
+            {
+                lista += pedido.ObtenerDatos() + "\n";
+            }
+        }
+        return lista;
+    }
+
+    public string ListadoCadetes(string idCadete)
+    {
+        string lista = "";
+        foreach (var cadete in this.cadetes)
+        {
+            if (cadete.ObtenerID() != idCadete)
+            {
+                lista += cadete.ObtenerDatos() + "\n";
+            }
+        }
+        return lista;
+    }
+
+    public string ListadoPedidosNoCompletosAsignados()
+    {
+        string lista = "";
+        foreach (var pedido in this.pedidos)
+        {
+            if (!pedido.EsPedidoCompleto() && pedido.TieneCadeteAsignado())
+            {
+                lista += pedido.ObtenerDatos() + "\n";
+            }
+        }
+        return lista;
+    }
+
+
+    public string Informe()
+    {
+        string lista = "";
+        foreach (var cadete in this.cadetes)
+        {
+            int pedidosComp = this.pedidos.Where(p => p.ObtenerIdCadeteAsignado() == cadete.ObtenerID() && p.EsPedidoCompleto()).Count();
+            float jornada = pedidosComp * 500; //campo privado en cadeteria de 500
+            lista += $"Cadete: {cadete.ObtenerNombre()}\nPedidos Compretados: {pedidosComp}\nMonto a cobrar: ${jornada.ToString()} \n";
+        }
+        return lista;
+    }
+
+    public Pedido ObtenerPedido(string idPedido)
+    {
+        foreach (var pedido in this.pedidos)
+        {
+            if (pedido.ObtenerID() == idPedido)
+            {
+                return pedido;
+            }
+        }
+        return null;
+    }
 
 
 }
