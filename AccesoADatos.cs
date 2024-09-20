@@ -7,6 +7,7 @@ public class AccesoCSV : AccesoADatos
 {
     public override List<Cadete> CargarCadetes(string filePath)
     {
+        Console.WriteLine("Ruta actual: " + Directory.GetCurrentDirectory());
         if (!File.Exists(filePath))
         {
             return null;

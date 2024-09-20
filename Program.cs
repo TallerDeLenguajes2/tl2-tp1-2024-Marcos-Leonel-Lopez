@@ -20,9 +20,39 @@ var cadeteria = new Cadeteria("Rappi", "32111321");
 int opc;
 System.Console.WriteLine("Forma cargar datos:");
 Renderizar.MostrarMenu(Constantes.FuenteDatos);
-if (!int.TryParse(Console.ReadLine(), out opc))
+while (true)
 {
+    if (int.TryParse(Console.ReadLine(), out opc))
+    {
+        if (opc >= 1 && opc <= 2)
+        {
+
+            switch (opc)
+            {
+                case 1:
+                    var accesoCSV = new AccesoCSV();
+                     listaCadetesAux = accesoCSV.CargarCadetes("../../../assets/cadetes.csv"); // debug
+                    //listaCadetesAux = accesoCSV.CargarCadetes("assets/cadetes.csv");
+                    break;
+                case 2:
+                    var accesoJSON = new AccesoJSON();
+                     listaCadetesAux = accesoJSON.CargarCadetes("../../../assets/cadetes.json"); // debug
+                    //listaCadetesAux = accesoJSON.CargarCadetes("assets/cadetes.json");
+                    break;
+            }
+            if (listaCadetesAux != null)
+            {
+                cadeteria.CargarListadoCadetes(listaCadetesAux);
+            }
+            else
+            {
+                System.Console.WriteLine("No se pudo cargar el archivo.");
+            }
+        }
+        break;
+    }
     System.Console.WriteLine("Entrada invalida. Por favor, ingrese un numero.");
+
 }
 
 
@@ -78,21 +108,20 @@ while (true)
                 res = cadeteria.AsignarCadeteAPedido(nCadete, nPedido);
                 System.Console.WriteLine(res);
                 break;
-            case 3: //cambiar estado hacerlo de forma ciclica o indicar primeramente que se hara..
+            case 3: //cambiar estado hacerlo de forma ciclica o indicar primeramente que se hara..7
                 auxPedido = null;
-                auxCadete = null;
                 System.Console.WriteLine("Lista de pedidos:");
                 System.Console.WriteLine(cadeteria.ListadoPedidosNoCompletosAsignados());
                 System.Console.WriteLine("Indicar nro. de pedido para cambiar su estado:");
                 nPedido = Console.ReadLine();
+                System.Console.WriteLine("Ingrese nuevo estado (0: Pendiente, 1: Completo, 2: Fallido):");
+                string nuevoEstado = Console.ReadLine();
                 auxPedido = cadeteria.ObtenerPedido(nPedido);
                 if (auxPedido == null)
                 {
                     System.Console.WriteLine("Pedido no encontrado");
                     break;
                 }
-                System.Console.WriteLine("Ingrese nuevo estado (0: Pendiente, 1: Completo, 2: Fallido):");
-                string nuevoEstado = Console.ReadLine();
                 // 'hardcodeo el id del cadete, pensando que ese dato lo podria obtener de la request'
                 if (nuevoEstado == "0")
                 {
@@ -147,7 +176,8 @@ while (true)
                 break;
             case 6:
                 // Console.Clear();
-                // System.Console.WriteLine("Pedido:");
+                System.Console.WriteLine("Cadetes:");
+                System.Console.WriteLine(cadeteria.ListadoCadetes(null));
                 // foreach (var pedido in pedidos)
                 // {
                 //     System.Console.WriteLine("==========");

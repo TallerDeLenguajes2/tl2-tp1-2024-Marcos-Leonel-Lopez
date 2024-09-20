@@ -2,7 +2,7 @@ public static class Constantes
 {
 
     public static readonly List<string> Menu = new List<string>{
-    "Dar Alta",
+    "Dar alta pedido",
     "Asiganar pedido",
     "Cambiar estado",
     "Reasignar pedido",

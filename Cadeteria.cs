@@ -5,7 +5,6 @@ public class Cadeteria : IData
     private List<Cadete> cadetes;
     private List<Pedido> pedidos;
 
-    private static int cont = 1;
 
     public Cadeteria(string nombre, string telefono)
     {
@@ -15,10 +14,9 @@ public class Cadeteria : IData
         this.pedidos = new List<Pedido>();
     }
 
-    public void CargarCadete(string nombre, string cedula, string telefono)
+    public void CargarCadete(string id,string nombre, string cedula, string telefono)
     {
-        this.cadetes.Add(new Cadete(cont.ToString(), nombre, cedula, telefono));
-        cont++;
+        this.cadetes.Add(new Cadete(id, nombre, cedula, telefono));
     }
 
     public void CargarPedido(string obs, string nombre, string direccion, string telefono, string referenciaDireccion)
@@ -246,6 +244,9 @@ public class Cadeteria : IData
         return null;
     }
 
+    public void CargarListadoCadetes(List<Cadete> cadetes){
+        this.cadetes = cadetes;
+    }
 
 }
 
