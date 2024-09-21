@@ -31,12 +31,12 @@ while (true)
             {
                 case 1:
                     var accesoCSV = new AccesoCSV();
-                     listaCadetesAux = accesoCSV.CargarCadetes("../../../assets/cadetes.csv"); // debug
+                    listaCadetesAux = accesoCSV.CargarCadetes("../../../assets/cadetes.csv"); // debug
                     //listaCadetesAux = accesoCSV.CargarCadetes("assets/cadetes.csv");
                     break;
                 case 2:
                     var accesoJSON = new AccesoJSON();
-                     listaCadetesAux = accesoJSON.CargarCadetes("../../../assets/cadetes.json"); // debug
+                    listaCadetesAux = accesoJSON.CargarCadetes("../../../assets/cadetes.json"); // debug
                     //listaCadetesAux = accesoJSON.CargarCadetes("assets/cadetes.json");
                     break;
             }

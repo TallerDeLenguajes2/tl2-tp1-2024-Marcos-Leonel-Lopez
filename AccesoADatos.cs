@@ -34,7 +34,7 @@ public class AccesoJSON : AccesoADatos
             return null;
         }
         var jsonString = File.ReadAllText(filePath);
-        var cadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonString);
-        return cadetes ?? new List<Cadete>();  // Devuelve una lista vacía si es null
+        List<Cadete> cadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonString);
+        return cadetes;  // Devuelve una lista vacía si es null
     }
 }
